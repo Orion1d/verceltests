@@ -1,0 +1,259 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 88%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    /* New CSS variables */
+    --overlay-bg: 0, 0, 0;
+    --text-inverse: #FFFFFF;
+    --card-bg-opacity: 0.96;
+    --diagonal-pattern: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.08' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 5v1H0V0h5z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .dark {
+    --background: 217 32.6% 12%;
+    --foreground: 210 40% 98%;
+
+    --card: 217 32.6% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 217 32.6% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 85%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    /* New CSS variables for dark mode */
+    --overlay-bg: 255, 255, 255;
+    --text-inverse: #0A1A2F;
+    --card-bg-opacity: 0.96;
+    --diagonal-pattern: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.08' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 5v1H0V0h5z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  /* Add performance optimizations */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  .main-content {
+    min-height: 80vh;
+    padding-bottom: 120px;
+  }
+}
+
+@layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    a:nth-of-type(2) .logo {
+      animation: logo-spin infinite 20s linear;
+    }
+  }
+
+  /* New global image rule */
+  img {
+    filter: brightness(0.98);
+  }
+
+  /* Form transition rule */
+  input, textarea, select, button {
+    transition: all 200ms ease-in-out;
+  }
+}
+
+@layer components {
+  /* Navbar styles for different modes */
+  .light-navbar {
+    @apply transition-all duration-300;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .dark-navbar {
+    @apply transition-all duration-300;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Link styles for different modes */
+  .nav-link {
+    @apply font-medium transition-colors duration-200;
+  }
+  
+  .dark .nav-link {
+    @apply text-white/90 hover:text-secondary;
+  }
+  
+  .light .nav-link {
+    @apply text-primary hover:text-secondary;
+  }
+  
+  .nav-link-active {
+    @apply text-secondary border-b-2 border-secondary;
+  }
+
+  /* Backdrop overlay for components */
+  .backdrop-overlay {
+    backdrop-filter: blur(8px);
+    background-color: rgba(var(--overlay-bg), var(--card-bg-opacity));
+  }
+
+  /* Safe area padding for mobile */
+  .safe-area-padding {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  /* Button styles for hero section */
+  .hero-btn-primary {
+    @apply bg-[#FF6B35] hover:bg-[#FF6B35]/90 text-white shadow-lg transition-all duration-300;
+  }
+  
+  .hero-btn-secondary {
+    @apply bg-transparent hover:bg-white/10 text-white border-[#FF6B35] hover:border-white shadow-[0_0_15px_rgba(255,107,53,0.5)] transition-all duration-300;
+  }
+  
+  /* Section background with pattern and gradient */
+  .section-bg-pattern {
+    background-image: var(--diagonal-pattern), linear-gradient(45deg, #0A1A2F22, #12224055);
+    background-attachment: fixed;
+  }
+  
+  /* Brushed metal effect for cards */
+  .card-brushed-metal {
+    background-image: linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.05) 75%, transparent 75%);
+    background-size: 4px 4px;
+    background-color: rgba(255,255,255,0.03);
+  }
+  
+  /* New animations for the hero section */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Product grid adjustments */
+  .product-grid-mobile {
+    @apply grid grid-cols-1 gap-6;
+  }
+  
+  .product-grid-desktop {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12;
+  }
+  
+  /* Touch device adjustments */
+  @media (hover: none) {
+    .hover-effect {
+      display: none !important;
+    }
+  }
+}
+
+@layer utilities {
+  .perspective {
+    perspective: 1000px;
+  }
+  
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  
+  /* Added utilities */
+  .contain-strict {
+    contain: strict;
+  }
+  
+  .contain-content {
+    contain: content;
+  }
+  
+  .loading-priority {
+    loading: "eager";
+  }
+  
+  .loading-lazy {
+    loading: "lazy";
+  }
+  
+  .fx-cap-60 {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+}
